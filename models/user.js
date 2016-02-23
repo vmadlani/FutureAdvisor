@@ -6,8 +6,8 @@ var FinancialCashflow = require("./financialCashflow")
 // var Project = mongoose.model("project");x
 
 var userSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  email: String,
+  email: { type: String, required: true },
+  name: String,
   family: String,
   tax: String,
   projects: [Project.schema],

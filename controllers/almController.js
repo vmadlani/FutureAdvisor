@@ -1,12 +1,15 @@
 var FinancialALM = require("../models/financialALM");
 var User = require("../models/user");
 
+
+
 function ALMIndex(req, res){
   console.log("ALM Index")
-  FinancialALM.find({}, function(err, alm) {
-    if (err) return res.status(404).send(err);
-    res.status(200).send(alm);
-  });
+  res.render('formsB'); 
+  // FinancialALM.find({}, function(err, alm) {
+  //   if (err) return res.status(404).send(err);
+  //   res.status(200).send(alm);
+  // });
 }
 
 

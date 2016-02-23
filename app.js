@@ -2,10 +2,18 @@
 var express        = require('express');
 var cors           = require('cors');
 var bodyParser     = require('body-parser');
+var ejsLayouts     = require("express-ejs-layouts");
 var morgan         = require('morgan');
 var mongoose       = require('mongoose');
 var methodOverride = require('method-override');
 var app            = express();
+
+// Authentication
+// var passport     = require('passport');
+// var flash        = require('connect-flash');
+// var cookieParser = require('cookie-parser');
+// var session      = require('express-session');
+
 
 // Setup database
 var databaseURL = 'mongodb://localhost/yearbook';
@@ -16,8 +24,11 @@ mongoose.connect(databaseURL);
 var routes = require('./config/routes');
 
 // Setup Middleware
-app.set('views', './views');
+
 app.set('view engine', 'ejs');
+app.use(ejsLayouts);
+app.set("views","./views");
+// app.use(express.static(__dirname + '/public'));
 
 app.use(express.static('public'));
 app.use(cors());

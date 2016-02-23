@@ -5,6 +5,7 @@ var usersController = require('../controllers/usersController');
 var projectsController = require('../controllers/projectsController');
 var almController = require('../controllers/almController');
 var cashflowController = require('../controllers/cashflowController');
+var staticController = require('../controllers/staticController');
 
 
 
@@ -30,20 +31,24 @@ router.route('/projects/:id')
   .patch(projectsController.projectsUpdate)
   .delete(projectsController.projectsDelete)
 
+router.route('/about')
+  .get(staticController.about);
+
+
 //new routes for ALM
 router.route('/financialALM')
   .get(almController.ALMIndex)
   .post(almController.ALMCreate)
 
 router.route('/financialALM/:id')
-  .get(almController.ALMShow)
+  // .get(almController.ALMShow)
   .patch(almController.ALMUpdate)
   .delete(almController.ALMDelete)
 
 
-// //new routes for Cashflow
-// router.route('/financialCashflow')
-//   .get(cashflowController.financialCashflowIndex)
+//new routes for Cashflow
+router.route('/financialCashflow')
+  .get(cashflowController.cashflowIndex)
 //   .post(cashflowController.financialCashflowCreate)
 
 // router.route('/financialCashflow/:id') 

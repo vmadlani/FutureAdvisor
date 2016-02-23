@@ -1,29 +1,6 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>FutureAdvisor</title>
-  <link rel="stylesheet" type="text/css" href="/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/app.js"></script>
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li>FutureAdvisor</li>
-        <li><a id="about" href="#">About</a></li>
-        <!--  <li><a id="user-form-button" href="#">Add User</a></li> -->
-        <li><a id="user-index-button" href="#">Log-in / Sign-up</a></li>
 
-          <!-- THIS SHOULD SWITCH BETWEEN REGISTRATION FORM / OR LOG IN FORM -->
-      </ul>
-    </nav>
-  </header>
- 
-  <main>
 
+<div id="index-container">
 
   <div id="shapescontainer">  
 
@@ -42,83 +19,22 @@
   </div>  
 
 
-  <div id="formscontainer">
-
-    <form id="new-user" >
-      <input type="text" name='name' id="name" placeholder="Name">
-      <input type="text" name='email' id="email" placeholder="Email">
-      <input type="text" name='family' id="family" placeholder="Family">
-      <input type="text" name='tax' id="tax" placeholder="Tax">
-      <input type="submit" value='Save' id="submit">
-    </form>
-
-    <form id="edit-user" >
-      <input type="text" name='edit-name' id="edit-name">
-      <input type="text" name='edit-email' id="edit-email">
-      <input type="text" name='edit-family' id="edit-family">
-      <input type="text" name='edit-tax' id="edit-tax">
-      <input type="submit" value='Save' id="submit">
-    </form>
-
-    <form id="new-project" >
-      <input type="text" name='project-title' id="project-title" placeholder="Title">
-      <input type="text" name='project-description' id="project-description" placeholder="Description">
-      <input type="text" name='project-github' id="project-github" placeholder="Github">
-      <input type="text" name='project-website' id="project-website" placeholder="Website">
-      <input type="submit" value='Save' id="submit">
-    </form>
-
-    <br>
-    <br>
-
-    <form id="new-alm" >
-      <input type="text" name='alm-pension' id="alm-pension" placeholder="Pension">
-      <input type="text" name='alm-savings' id="alm-savings" placeholder="Savings">
-      <input type="text" name='alm-investment' id="alm-investment" placeholder="Investment">
-      <input type="text" name='alm-property' id="alm-property" placeholder="Property">
-      <input type="text" name='alm-debt' id="alm-debt" placeholder="Debt">
-      <input type="submit" value='Save' id="submit">
-    </form>
-
-    <br>
-    <br>
-
-    <form id="new-cashflow" >
-      <input type="text" name='cashflow-job' id="cashflow-job" placeholder="Job">
-      <input type="text" name='cashflow-outgoing' id="cashflow-outgoing" placeholder="Outgoing">
-      <input type="text" name='cashflow-dividends' id="cashflow-dividends" placeholder="Dividends">
-      <input type="text" name='cashflow-rental_income' id="cashflow-rental_income" placeholder="Rental Income">
-      <input type="submit" value='Save' id="submit">
-    </form>
-
-    <br>
-    <br>
-
-
-    <div>  <!--   this is the div for all the data requests-->      
-        <h2> We are simplifying Financial Advice:<br> 
-          <a class="link" href='#'>STEP 1:</a> Tell us what you've got. <br>
-          <a class="link" href='#'>STEP 2:</a> Tell us your hopes and aspirations. <br>
-          <a class="link" href='#'>STEP 3:</a> We give you some independent advice. <br>
+     <div id="formscontainer">  <!--   this is the div for all the data requests-->      
+        <h2> We are simplifying Financial Advice into 3 steps:<br> 
+          <a class="links" id="step1" href='/financialCashflow'>STEP 1:</a> We go through what you currently have<br>
+          <a class="links" href='/financialALM'>STEP 2:</a> We go through your hopes and aspirations. <br>
+          <a class="links" href='#'>STEP 3:</a> We provide you with throughts on how to achieve this <br>
         </h2>
+
         <div id="users"></div>
         <div id="show"></div>
         <div id="projects"></div>
         <div id="cashflow"></div>
-        <div id="alm"></div>
+        <div id="alm">
+<!--           <div class='col-sm-6 col-md-6 col-lg-4'>"HELLO"</div> -->
+        </div>
      </div> 
 
 
    </div>
-
-  </main>
-
-<!--   <footer>
-  hello
-  </footer> -->
-
-</body>
-
-</html>
-
-
+</div>

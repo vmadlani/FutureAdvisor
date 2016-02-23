@@ -14,10 +14,19 @@ $(document).ready(function(){
   $('body').on('click', '#addALM', toggleAddALM);
   $('body').on('click', '#A-triangle', toggleAddALM);
   $('body').on('click', '#B-triangle', toggleAddALM);
+  $('body').on('click', '#step1', newview);
 });
 
 // Use JQuery animation functions to hide/show elements 
 // TOGGLE INDEX PAGE
+
+function newview() {
+  console.log("newview")
+  var ajax = $.get('http://localhost:3000/financialCashflow')
+  .done(function(){
+    console.log("done")   
+  });  
+}
 
 function toggleShowUsers(){
   $("#show").slideUp("slow");
