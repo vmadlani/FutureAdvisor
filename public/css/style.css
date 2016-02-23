@@ -1,0 +1,308 @@
+
+
+@font-face{
+    font-family: 'GT-Walsheim-Bold';
+    src: url('../GT-Walsheim-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+ }
+
+@font-face{
+    font-family: 'GT-Walsheim-Regular';
+    src: url('../GT-Walsheim-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+ }
+
+.link {
+ text-decoration: underline;
+}
+
+
+/*SETUP*/
+body {
+  font-family: 'GT-Walsheim-Regular';
+  background-color: white;
+}
+
+/*background-color: #FAFAFA;*/
+
+main {
+  width: 960px;
+  margin: 5px auto;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+
+/*FORMS CONTAINER*/
+#formscontainer {
+  float: left;
+  position: relative;
+  zoom: 1;
+  width: 50%;
+  height: 505px;
+}
+
+
+
+/*SHAPES CONTAINER*/
+#shapescontainer {
+  float: right;
+  position: relative;
+  zoom: 1;
+  width: 50%;
+  height: 90%;
+}
+
+
+/*TRIANGLE*/
+.triangle-down-right:after {
+    content: "";
+    display: inline-block;
+    float: right;
+    width: 0;
+    height: 0;
+    margin-top:0px;
+    margin-left:50%;
+    border-top: 225px solid transparent;
+    border-right: 225px solid #0033cc;
+}
+
+#A-triangle {
+    float: left;
+    margin-top: -10px;
+    margin-left: 5%;
+}
+
+.triangle-content{
+    position:  relative;
+    top: 110px;
+    left: 50px;
+    bottom: 0;
+    right: 0 ;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+
+
+/*#second-triangle-textbox {
+    width: 10px;
+    height: 10px;
+}*/
+
+
+/*SQUARE*/
+
+.square-box{
+    margin-top: 5px;
+    float: right;
+    position: relative;
+    width: 47%;
+    overflow: hidden;
+    background: #0033cc;
+}
+.square-box:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+.square-content{
+    position:  absolute;
+    top: 0;
+    left: 20px;
+    bottom: 0;
+    right: 20px;
+    color: white;
+}
+.square-content div {
+   display: table;
+   width: 100%;
+   height: 100%;
+}
+.square-content span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: white
+}
+
+
+/*FORM*/
+
+#new-user, #edit-user, #new-project, #new-alm, #new-cashflow {
+  display: none;
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+input[type=text] {
+  font-size: 18px;
+  font-family: helvetica;
+  padding: 5px 10px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+input[type=submit] {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: helvetica;
+  padding: 5px;
+  width: 150px;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+}
+
+input[type=submit]:hover {
+  background-color: white;
+  color: black;
+}
+
+/*TYPE*/
+
+h2 {
+  font-weight: bold;
+  font-size: 27px;
+  line-height: 1.3;
+}
+
+p {
+  line-height: 1.3;
+}
+
+a {
+  color: black;
+  line-height: 1.3;
+}
+
+h2 a {
+  text-decoration: none;
+}
+
+h2 a:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*HEADER*/
+
+header {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #EDEEEE;
+}
+
+header nav {
+  max-width: 960px;
+  margin: 0 auto;
+  height: 60px;
+  line-height: 60px;
+}
+
+header nav ul {
+  height: 60px;
+  line-height: 60px;
+  font-size: 18px;
+  font-color: #0033cc;
+}
+
+header nav ul li:first-child {
+  font-family: 'GT-Walsheim-Bold';
+  float: left;
+  font-color: #0033cc;
+  color: #0033cc;
+  padding: 0;
+  font-size: 54px;
+}
+
+header nav ul li {
+  font-weight: bold;
+  display: inline;
+  height: 60px;
+  line-height: 60px;
+  float: right;
+  padding: 0;
+  font-color: #0033cc;
+}
+
+header nav ul li:nth-child(2) {
+  padding: 0 0 0 10px;
+}
+
+header nav ul li a:hover {
+  text-decoration: none;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #0033cc;
+}
+
+/*INDEX USERS*/
+
+#users {
+  margin-top: 50px;
+  overflow: hidden;
+  float:left;
+}
+
+.user-tile {
+  background-color: white;
+  width: 290px;
+  float: left;
+  padding: 10px;
+  margin: 0 15px 15px 0;
+}
+
+.user-tile img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.user-tile:nth-child(3n+3) {  
+  margin: 0 0 15px 0;
+}
+
+
+
+/*SHOW USER*/
+
+#show {
+  display: none;
+  width: 310px;
+  float: left;
+}
+
+#projects {
+  display: none;
+  overflow: hidden;
+  padding-left: 15px;
+}
+
+.project-tile {
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+/*SHOW ALM*/
+
+
+footer {
+    position:absolute;
+    bottom:0px;
+    height: 60px;
+    width: 100%;
+    background-color: #FAFAFA;
+    border-top: 1px solid #EDEEEE;
+}
