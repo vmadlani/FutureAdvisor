@@ -13,6 +13,7 @@ var userSchema = mongoose.Schema({
   projects: [Project.schema],
   financialALM: [FinancialALM.schema],
   financialCashflow: [FinancialCashflow.schema]
+
 });
 
 module.exports = mongoose.model('User', userSchema);

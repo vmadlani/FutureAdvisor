@@ -31,8 +31,6 @@ router.route('/projects/:id')
   .patch(projectsController.projectsUpdate)
   .delete(projectsController.projectsDelete)
 
-router.route('/about')
-  .get(staticController.about);
 
 
 //new routes for ALM
@@ -55,6 +53,15 @@ router.route('/financialCashflow')
 //   .get(cashflowController.financialCashflowShow)
 //   .patch(cashflowController.financialCashflowUpdate)
 //   .delete(cashflowController.financialCashflowDelete)
+
+// STATIC
+router.route('/about')
+  .get(staticController.about);
+router.route('/contact')
+  .get(staticController.contact);
+  router.route('/family')
+    .get(staticController.family);
+
 
 
 // https://api.typeform.com/v0/form/VNrOIR?key=3fa2fcb4f0bb33a6350bb8417485830bb0ffa09f&completed=true

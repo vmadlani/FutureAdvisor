@@ -146,7 +146,7 @@ html {
 /*FORM*/
 
 #new-user, #edit-user, #new-project, #new-alm, #new-cashflow {
-  display: none;
+  /*display: none;*/
   padding: 10px;
   background-color: white;
   margin-bottom: 15px;
@@ -355,6 +355,8 @@ footer {
 }
 
 
+
+
 button {
   width: 50%;
   margin-top: 10px;
@@ -376,10 +378,9 @@ button:active {
   outline: 0;
 }
 
-
-
-
-
+a {
+  color: #0033cc;
+}
 
 
 
