@@ -1,18 +1,39 @@
 var express = require('express'),
     router  = express.Router();
 
+var passport = require("passport");
+
 var usersController = require('../controllers/usersController');
 var projectsController = require('../controllers/projectsController');
 var almController = require('../controllers/almController');
 var cashflowController = require('../controllers/cashflowController');
 var staticController = require('../controllers/staticController');
 
+// function authenticatedUser(req, res, next) {
+//   // If the user is authenticated, then we continue the execution
+//   if (req.isAuthenticated()) return next();
+
+//   // Otherwise the request is always redirected to the home page
+//   res.redirect('/');
+// }
 
 
 router.route('/').get(function(req, res) {
   res.render('index');
 })
- 
+
+router.route('/signup')
+  .get(usersController.getSignup)
+  .post(usersController.postSignup)
+
+router.route('/login')
+  .get(usersController.getLogin)
+  .post(usersController.postLogin)
+
+router.route("/logout")
+  .get(usersController.getLogout)
+
+
 router.route('/users')
   .get(usersController.usersIndex)
   .post(usersController.usersCreate)
@@ -32,8 +53,7 @@ router.route('/projects/:id')
   .delete(projectsController.projectsDelete)
 
 
-
-//new routes for ALM
+// new routes for ALM
 router.route('/financialALM')
   .get(almController.ALMIndex)
   .post(almController.ALMCreate)

@@ -1,3 +1,9 @@
+// Authentication
+var passport     = require('passport');
+var flash        = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+
 // Require packages
 var express        = require('express');
 var cors           = require('cors');
@@ -8,11 +14,6 @@ var mongoose       = require('mongoose');
 var methodOverride = require('method-override');
 var app            = express();
 
-// Authentication
-// var passport     = require('passport');
-// var flash        = require('connect-flash');
-// var cookieParser = require('cookie-parser');
-// var session      = require('express-session');
 
 
 // Setup database
@@ -20,21 +21,20 @@ var databaseURL = 'mongodb://localhost/yearbook';
 mongoose.connect(databaseURL);
 
 // We've put our seed data in a separate file
-// Require routes
-var routes = require('./config/routes');
 
 // Setup Middleware
+app.use(cors());
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser()); 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.set("views","./views");
-// app.use(express.static(__dirname + '/public'));
-
 app.use(express.static('public'));
-app.use(cors());
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === "object" && "_method" in req.body){
     var method = req.body._method;
@@ -42,6 +42,16 @@ app.use(methodOverride(function(req, res){
     return method; 
   }
 }));
+// Authentication
+app.use(session({ secret: 'FUTUREADVISOR' })); 
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(flash());
+require('./config/passport')(passport);
+
+
+// Require routes
+var routes = require('./config/routes');
 app.use(routes);
 
 // Listen on the correct PORT

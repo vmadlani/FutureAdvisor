@@ -1,132 +1,61 @@
 $(document).ready(function(){
   // getUsers();
-  // Set up our event listeners
-  $("form#new-user").on("submit", createUser);
-  $("form#new-project").on("submit", createProject);
-  $("form#new-alm").on("submit", createALM);
-  $("#user-form-button" ).on("click", toggleUserForm);
-  $("#user-index-button" ).on("click", toggleShowUsers);
-  // Use event delegation to allow for dynamically created elements
-  $("body").on("click", ".delete", removeUser);
-  $('body').on('click', '.show', showUserProfile)
-  $('body').on('click', '.edit', editUser);
-  $('body').on('click', '#addProject', toggleAddProject);
-  $('body').on('click', '#addALM', toggleAddALM);
-  $('body').on('click', '#A-triangle', toggleAddALM);
-  $('body').on('click', '#B-triangle', toggleAddALM);
-  $('body').on('click', '#step1', newview);
+  $('body').on('click', '#new-contact-toggle', newContact);
+  $('body').on('click', '#new-family-toggle', newFamily);
+  $("form#new-contact").on("submit", createUser);
+  $("form#new-family").on("submit", addFamily);
 });
 
-// Use JQuery animation functions to hide/show elements 
-// TOGGLE INDEX PAGE
+//SHOWS THE RELEVANT FORMS
+function newContact() {
+  $("form#new-contact").slideToggle("slow");}
 
-function newview() {
-  console.log("newview")
-  var ajax = $.get('http://localhost:3000/financialCashflow')
-  .done(function(){
-    console.log("done")   
-  });  
-}
+function newFamily() {
+  $("form#new-family").slideToggle("slow");}
 
-function toggleShowUsers(){
-  $("#show").slideUp("slow");
-  $("#projects").slideUp("slow");
-  $("#shapescontainer").slideUp("slow");
-  setTimeout(function(){
-    $("#show").html(" ");
-    $("#projects").html(" ");
-    $('#users').slideDown()
-  }, 600);
-}
-
-// GET ALL USERS
-
-function getUsers(){
-  var ajax = $.get('http://localhost:3000/users')
-  .done(function(data){
-    console.log(data)
-    $.each(data, function(index, user){
-      addUser(user);
-    });
-  });
-}
-
-// CREATE USER
-
-function toggleUserForm(){
-  $("form#new-user").slideToggle("slow");
-}
-
+//Create a user
 function createUser(){
   event.preventDefault();
-
   $.ajax({
     url:'http://localhost:3000/users',
     type:'post',
     data: { user: {
-      "name": $("input#name").val(),
-      "github": $("input#github").val(),
-      "image": $("input#image").val(),
-      "bio": $("input#bio").val(),
-      "portfolio": $("input#portfolio").val()
-    }}
+      "email": $("input#email").val(),
+      "name": $("input#name").val()}}
   }).done(function(data) {
-    addUser(data);
-    toggleUserForm();
-    $("input#name").val(null),
-    $("input#github").val(null),
-    $("input#image").val(null),
-    $("input#bio").val(null),
-    $("input#portfolio").val(null)
+    console.log(data);
+    localStorage.setItem("category", data._id)
+    localStorage.setItem("contact", "done")
+    $("form#new-contact").slideToggle("slow"),
+    $("input#name").val(null), 
+    $("input#email").val(null)  
   });
 }
 
-// ADD A USER TO PAGE
-
-function addUser(user){
-  $("#users").prepend("<div class='user-tile'><h2>" + user.name + "</h2><p> " + user.bio + "</p><a href='https://github.com/"+ user.github +"'>Github</a> | <a href='"+ user.portfolio +"'>Portfolio</a><br><a data-id='"+user._id+"' class='delete' href='#'>Delete</a> | <a data-id='"+user._id+"' class='show' href='#'>Show</a> | <a href='#' class='edit' data-id='"+user._id+"'>Edit</a></div>");
-}
-
-// REMOVE USER
-
-function removeUser(){
+//add family
+function addFamily(){
   event.preventDefault();
-  var itemToRemove = $(this).parent();
+  var id = localStorage.getItem("category");
   $.ajax({
-    url:'http://localhost:3000/users/'+$(this).data().id,
-    type:'delete'
-  }).done(function() {
-    itemToRemove.remove();
-  });
-  // 
-}
-
-// SHOW USER
-
-function showUserProfile(){
-  $('#users').slideUp();
-  $("#shapescontainer").slideUp("slow");
-  $.ajax({
-    method: 'GET',
-    url: 'http://localhost:3000/users/'+$(this).data().id
+    method: 'patch',
+    url: 'http://localhost:3000/users/'+id,
+    data: {
+      user: {
+            "married": $("input#married").val(),
+            "kids": $("input#kids").val(),
+            "lifeCover": $("input#lifeCover").val()
+          }}
   }).done(function(user){
-    $('#show').prepend("<div class='user-tile' data-id="+ user._id +"><h2 id='username'>" + user.name + "</h2><p> " + user.bio + "</p><a href='https://github.com/"+ user.github +"'>Github</a> | <a href='"+ user.portfolio +"'>Portfolio</a></div>");
-    
-    $.each(user.financialALM, function(index, alm){
-      addALM(alm)    
-    })
-    $.each(user.projects, function(index, project){
-      addProject(project)    
-    })
-
-    $("#projects").append("<div class='project-tile'><h2><a id='addProject' href='#'>Add a project +</a><br><a id='addALM' href='#'>Add ALM +</a></h2></div>")
-
-    setTimeout(function(){
-      $('#show').slideDown()
-      $('#projects').slideDown()
-    }, 600);
+    console.log(user);
+    localStorage.setItem("family", "done")
+    $("form#new-family").slideToggle("slow"),
+    $("input#married").val(null), 
+    $("input#kids").val(null),
+    $("input#lifeCover").val(null)
   });
 }
+
+
 
 // EDIT USER
 
@@ -210,44 +139,6 @@ function toggleAddALM(){
   $("form#new-alm").slideToggle("slow");
 }
 
-// pension: String,
-// savings: String,
-// investment: String,
-// property: String,
-// debt: String,
-
-function createALM(){
-  event.preventDefault();
-  console.log("createALM")
-  $.ajax({
-    url:'http://localhost:3000/financialALM',
-    type:'post',
-    data: { financialALM: {
-      "pension": $("input#alm-pension").val(),
-      "savings": $("input#alm-savings").val(),
-      "investment": $("input#alm-investment").val(),
-      "property": $("input#alm-property").val(),
-      "debt": $("input#alm-debt").val(),
-      "user" : $('#username').html()
-    }
-  }
-  }).done(function(alm) {
-    console.log("done save alm");
-    console.log(alm);
-    addALM(alm)
-    toggleAddALM();
-    $("input#alm-pension").val(null),
-    $("input#alm-savings").val(null),
-    $("input#alm-investment").val(null),
-    $("input#alm-property").val(null),
-    $("input#alm-debt").val(null)
-  });
-}
-
-function addALM(alm){
-  $('#show').prepend("<div class='project-tile'><h2>"+ alm.pension +"</h2><p>"+ alm.savings +"</p>" + "<p>"+ alm.investment +"</p>" + "<p>"+ alm.property +"</p>" + "<p>"+ alm.debt +"</p>" + "</div>")
-  console.log("hello addALM")
-}
 
 // function getData(){
 
@@ -258,13 +149,108 @@ function addALM(alm){
 //     });
 // }
 
+// Set up our event listeners
+// $("form#new-project").on("submit", createProject);
+// $("form#new-alm").on("submit", createALM);
+// $("#user-form-button" ).on("click", toggleUserForm);
+// $("#user-index-button" ).on("click", toggleShowUsers);
+// Use event delegation to allow for dynamically created elements
+// $("body").on("click", ".delete", removeUser);
+// $('body').on('click', '.show', showUserProfile)
+// $('body').on('click', '.edit', editUser);
+// $('body').on('click', '#addProject', toggleAddProject);
+// $('body').on('click', '#addALM', toggleAddALM);
+// $('body').on('click', '#A-triangle', toggleAddALM);
+// $('body').on('click', '#B-triangle', toggleAddALM);
+// $('body').on('click', '#step1', newview);
 
 
 
 
 
+// Use JQuery animation functions to hide/show elements 
+// TOGGLE INDEX PAGE
+// function newview() {
+//   console.log("newview")
+//   var ajax = $.get('http://localhost:3000/financialCashflow')
+//   .done(function(){
+//     console.log("done")   
+//   });  
+// }
 
 
 
+// function toggleShowUsers(){
+//   $("#show").slideUp("slow");
+//   $("#projects").slideUp("slow");
+//   $("#shapescontainer").slideUp("slow");
+//   setTimeout(function(){
+//     $("#show").html(" ");
+//     $("#projects").html(" ");
+//     $('#users').slideDown()
+//   }, 600);
+// }
 
+// GET ALL USERS
+// function getUsers(){
+//   var ajax = $.get('http://localhost:3000/users')
+//   .done(function(data){
+//     console.log(data)
+//     $.each(data, function(index, user){
+//       addUser(user);
+//     });
+//   });
+// }
+
+
+
+// // CREATE USER
+// function toggleUserForm(){
+//   $("form#new-user").slideToggle("slow");
+// }
+
+// // ADD A USER TO PAGE
+// function addUser(user){
+//   $("#users").prepend("<div class='user-tile'><h2>" + user.name + "</h2><p> " + user.bio + "</p><a href='https://github.com/"+ user.github +"'>Github</a> | <a href='"+ user.portfolio +"'>Portfolio</a><br><a data-id='"+user._id+"' class='delete' href='#'>Delete</a> | <a data-id='"+user._id+"' class='show' href='#'>Show</a> | <a href='#' class='edit' data-id='"+user._id+"'>Edit</a></div>");
+// }
+
+// // REMOVE USER
+// function removeUser(){
+//   event.preventDefault();
+//   var itemToRemove = $(this).parent();
+//   $.ajax({
+//     url:'http://localhost:3000/users/'+$(this).data().id,
+//     type:'delete'
+//   }).done(function() {
+//     itemToRemove.remove();
+//   });
+//   // 
+// }
+
+
+// // SHOW USER
+// function showUserProfile(){
+//   $('#users').slideUp();
+//   $("#shapescontainer").slideUp("slow");
+//   $.ajax({
+//     method: 'GET',
+//     url: 'http://localhost:3000/users/'+$(this).data().id
+//   }).done(function(user){
+//     $('#show').prepend("<div class='user-tile' data-id="+ user._id +"><h2 id='username'>" + user.name + "</h2><p> " + user.bio + "</p><a href='https://github.com/"+ user.github +"'>Github</a> | <a href='"+ user.portfolio +"'>Portfolio</a></div>");
+    
+//     $.each(user.financialALM, function(index, alm){
+//       addALM(alm)    
+//     })
+//     $.each(user.projects, function(index, project){
+//       addProject(project)    
+//     })
+
+//     $("#projects").append("<div class='project-tile'><h2><a id='addProject' href='#'>Add a project +</a><br><a id='addALM' href='#'>Add ALM +</a></h2></div>")
+
+//     setTimeout(function(){
+//       $('#show').slideDown()
+//       $('#projects').slideDown()
+//     }, 600);
+//   });
+// }
 
