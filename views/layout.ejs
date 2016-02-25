@@ -14,16 +14,18 @@
 <body>
   <header>
     <nav>
-      <ul>
+      <ul class="nav">
         <li><a href="/">FutureAdvisor</a></li>
         <li><a id="about" href="/about">About</a></li>
-        <!--  <li><a id="user-form-button" href="#">Add User</a></li> -->
-        <!--  <li><a id="user-index-button" href="#">Log-in / Sign-up</a></li> -->
-        <li><a href="/signup">|  Sign-up  |</a></li>
-        <li><a href="/login">|  Log-in  |</a></li>
-        <li><a href="/logout">|  Log-out  |</a></li>
+        <!-- THIS SHOULD SWITCH BETWEEN REGISTRATION FORM / OR LOG IN FORM -->
+        <% if (global.user) { %>
+          <li><a href="/logout">Logout</a></li<a>
+          <li><a href="/profile">Profile</a></li<a>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/signup">Signup</a></li>
+        <% } %>
 
-          <!-- THIS SHOULD SWITCH BETWEEN REGISTRATION FORM / OR LOG IN FORM -->
       </ul>
     </nav>
   </header>

@@ -49,6 +49,12 @@ app.use(passport.session());
 app.use(flash());
 require('./config/passport')(passport);
 
+app.use(function (req, res, next) {
+  console.log(req.user)
+  global.user = req.user;
+  next()
+});
+
 
 // Require routes
 var routes = require('./config/routes');

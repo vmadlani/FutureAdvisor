@@ -1,11 +1,9 @@
 var mongoose = require("mongoose");
 
 var financialALMSchema = mongoose.Schema({
-  pension: String,
-  savings: String,
-  investment: String,
-  property: String,
-  debt: String,
+	savings: Number,
+	property: Number,
+	investments: Number,
 });
 
 module.exports = mongoose.model('FinancialALM', financialALMSchema);

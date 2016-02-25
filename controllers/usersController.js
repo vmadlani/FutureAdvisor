@@ -16,7 +16,7 @@ function postSignup(request, response) {
     failureFlash : true 
   });
 
-  return signUpStrategy(request, response) 
+  return signUpStrategy(request, response)
 }
 
 // GET /login
@@ -83,6 +83,20 @@ function usersUpdate(req, res) {
   })
 }
 
+
+function usersUpdate2(req, res) {
+  console.log('usersUpdate2')
+  console.log(global.user)
+  id = global.user._id
+  User.findByIdAndUpdate({ _id: id }, req.body.user, {new: true}, function(err, user){
+    if (err) return res.status(500).send(err);
+    if (!user) return res.status(404).send(err);
+    res.status(200).send(user);
+  })
+}
+
+
+
 function usersDelete(req, res){
   var id = req.params.id;
 
@@ -97,10 +111,11 @@ module.exports = {
   usersCreate: usersCreate,
   usersShow:   usersShow,
   usersUpdate: usersUpdate,
+  usersUpdate2: usersUpdate2,
   usersDelete: usersDelete,
   getLogin: getLogin,
   postLogin: postLogin ,
   getSignup: getSignup,
   postSignup: postSignup,
-  // getLogout: getLogout,
+  getLogout: getLogout
 }

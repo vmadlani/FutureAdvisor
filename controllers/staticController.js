@@ -1,5 +1,7 @@
 // GET /
-function about(req, res) {  
+function about(req, res) { 
+	console.log(req.user);
+	console.log(req.isAuthenticated());
   res.render('about');
 }
 
@@ -7,13 +9,13 @@ function contact(req, res) {
   res.render('contact');
 }
 
-function family(req, res) {  
-  res.render('family');
+function profile(req, res) {  
+  res.render('profile');
 }
 
 
 module.exports = {
   about: about,
   contact: contact,
-  family: family,
+  profile: profile,
 }

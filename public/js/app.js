@@ -2,30 +2,56 @@ $(document).ready(function(){
   // getUsers();
   $('body').on('click', '#new-contact-toggle', newContact);
   $('body').on('click', '#new-family-toggle', newFamily);
-  $("form#new-contact").on("submit", createUser);
+  $('body').on('click', '#new-pension-toggle', newPension);
+  $('body').on('click', '#edit-contact-toggle', editContact);
+  $("form#new-contact").on("submit", addContact);
   $("form#new-family").on("submit", addFamily);
+  $("form#new-pension").on("submit", addPension);
 });
 
 //SHOWS THE RELEVANT FORMS
 function newContact() {
-  $("form#new-contact").slideToggle("slow");}
+  $("#new-contact-div").slideToggle("fast");}
 
 function newFamily() {
-  $("form#new-family").slideToggle("slow");}
+  $("#new-family-div").slideToggle("fast");}
 
-//Create a user
-function createUser(){
+function newPension() {
+  $("#new-pension-div").slideToggle("fast");
+}
+
+function editContact() {
+  $("#edit-contact-div").slideToggle("fast");
+}
+
+
+function addPension(){
   event.preventDefault();
   $.ajax({
     url:'http://localhost:3000/users',
-    type:'post',
+    type:'patch',
+    data: { user: 
+            {financialCashflow:  
+              {"pension": $("input#pension").val()}
+            }}
+        }).done(function(data){
+        console.log("addPension data response")
+        $("new-pension-div").slideToggle("slow"),
+        $("input#pension").val(null)     
+    });  
+};
+
+//Create a user
+function addContact(){
+  event.preventDefault();
+  $.ajax({
+    url:'http://localhost:3000/users',
+    type:'patch',
     data: { user: {
       "email": $("input#email").val(),
       "name": $("input#name").val()}}
   }).done(function(data) {
     console.log(data);
-    localStorage.setItem("category", data._id)
-    localStorage.setItem("contact", "done")
     $("form#new-contact").slideToggle("slow"),
     $("input#name").val(null), 
     $("input#email").val(null)  
@@ -58,7 +84,6 @@ function addFamily(){
 
 
 // EDIT USER
-
 function editUser(){
   $.ajax({
     method: 'get',
@@ -73,7 +98,6 @@ function editUser(){
   // Bind the clicked element to our updateUser function so that the updateUser function knows what "this" refers to when the updateUser function runs
   $('#edit-user').on('submit', updateUser.bind(this));
 }
-
 var updateUser = function(){
   event.preventDefault();
   // Get the parent element of the clicked edit anchor tag
@@ -92,8 +116,6 @@ var updateUser = function(){
     data: user
   }).done(function(updatedUser){
     // Empty the specific user div and rewrite the html with the updated user that gets returned from our server
-    userDiv.empty();
-    userDiv.prepend("<h2>" + updatedUser.name + "</h2><p> " + updatedUser.bio + "</p><a href='https://github.com/"+ updatedUser.github +"'>Github</a> | <a href='"+ updatedUser.portfolio +"'>Portfolio</a><br><a data-id='"+updatedUser._id+"' class='delete' href='#'>Delete</a> | <a data-id='"+updatedUser._id+"' class='show' href='#'>Show</a> | <a href='#' class='edit' data-id='"+updatedUser._id+"'>Edit</a>");
   });
 }
 

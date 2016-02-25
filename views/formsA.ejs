@@ -8,103 +8,83 @@
 <h2  style="border-bottom: 2px solid #0033cc;" >PERSONAL</h2>
 <br>
 
+<!-- PERSONAL FROMS -->
+
+<!-- PERSONAL CARDS -->
 
   <div class='row'>
-
-    <div class='col-sm-12 col-md-9 col-lg-6' >
-      <form id="new-contact" >
-        <input type="text" name='name' id="name" placeholder="Name"><br>
-        <input type="text" name='email' id="email" placeholder="Email"><br>
-        <input type="submit" value='Save' id="submit">
-      </form>
-    </div>
-
-    <div class='col-sm-12 col-md-9 col-lg-6' >
-      <form id="edit-contact" >
-        <input type="text" name='edit-name' id="edit-name"><br>
-        <input type="text" name='edit-email' id="edit-email"><br>
-        <input type="submit" value='Save' id="submit">
-      </form>
-    </div>
-    
-    <div class='col-sm-12 col-md-9 col-lg-6' >  
-      <form id="new-family" >
-        <input type="text" name='married' id="married" placeholder="Married?"><br>
-        <input type="text" name='kids' id="kids" placeholder="Kids"><br>
-        <input type="text" name='lifeCover' id="lifeCover" placeholder="Life Cover?"><br>
-        <input type="submit" value='Save' id="submit">
-      </form>
-    </div>
-    
-    <div class='col-sm-12 col-md-9 col-lg-6' >  
-      <form id="edit-family" >
-        <input type="text" name='edit-married' id="edit-married" placeholder="Married?"><br>
-        <input type="text" name='edit-kids' id="edit-kids" placeholder="Kids"><br>
-        <input type="text" name='edit-lifeCover' id="edit-lifeCover" placeholder="Life Cover?"><br>
-        <input type="submit" value='Save' id="submit">
-      </form>
-    </div>
-
-</div>
-
-
-
-  <div class='row'>
-
-    <div class='col-sm-6 col-md-6 col-lg-4' >
-      <div class='card'>
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div class='card'>
         <h2 class="card-title">Contact details</h4>
           <p>email, address, password, account admin</p>
           <br>
-          <a href="#" id="new-contact-toggle">Lets do this</a>
+          <% if (global.user.name) { %>
+            <p>This section is complete</p>
+            <a href="#" id="edit-contact-toggle">Edit details</a>
+          <% } else { %>
+            <a href="#" id="new-contact-toggle">Lets do this</a>
+          <% } %>
+
           <!--<a href="#" id="edit-contact-toggle">Edit</a> -->
         <h6>2-3 mins (6 questions)</h6>
-      </div>
-    </div>
+    </div></div>
 
-    <div class='col-sm-6 col-md-6 col-lg-4' >
-      <div class='card'>
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div class='card'>
         <h2 class="card-title">Family</h4>
-          <p>kids, pets, life cover, healthcare</p>
+          <p>kids, life cover, healthcare</p>
           <br>
           <a href="#" id="new-family-toggle">Lets do this</a>
         <h6>2-15 mins (9 questions)</h6>
-      </div>
-    </div>
-
+    </div></div>
   </div>
 
   
+  <div class='row'>
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div id="new-contact-div" class='card'>
+        <form id="new-contact">
+            <input type="text" name='name' id="name" placeholder="Name"><br><br>
+            <input type="text" name='email' id="email" placeholder="Email"><br><br>
+            <input type="password" name='password' id="password" placeholder="Password"><br><br>
+            <input type="submit" value='Save' id="submit"><br><br>
+            <input type="submit" value='Delete' id="delete-user">
+        </form>
+    </div></div>
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div id="new-family-div" class='card'>
+        <form id="new-family" >
+            <input type="text" name='married' id="married" placeholder="Married?"><br><br>
+            <input type="text" name='kids' id="kids" placeholder="Kids"><br><br>
+            <input type="text" name='lifeCover' id="lifeCover" placeholder="Life Cover?"><br><br>
+            <input type="submit" value='Save' id="submit">
+        </form>
+    </div></div>    
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div id="edit-contact-div" class='card'>
+        <form id="edit-contact" >
+          <input type="text" name='edit-name' id="edit-name"><br><br>      
+          <input type="text" name='edit-email' id="edit-email"><br><br>
+          <input type="password" name='edit-password' id="edit-password"><br><br>
+          <input type="submit" value='Save' id="submit"><br><br>
+          <input type="submit" value='Delete' id="delete-user">
+        </form>
+    </div></div>
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div id="edit-family-div" class='card'>
+        <form id="edit-family" >
+          <input type="text" name='edit-married' id="edit-married" placeholder="Married?"><br><br>
+          <input type="text" name='edit-kids' id="edit-kids" placeholder="Kids"><br><br>
+          <input type="text" name='edit-lifeCover' id="edit-lifeCover" placeholder="Life Cover?"><br><br>
+          <input type="submit" value='Save' id="submit">
+        </form>
+    </div></div>
+  </div>
+
+
 <br>
 <h2  style="border-bottom: 2px solid #0033cc;" >CASHFLOW</h2>
 <br>
 
-    <div class='row'>
-
-      <div class='col-sm-12 col-md-9 col-lg-6' >
-        <form id="new-income" >
-          <input type="text" name='name' id="name" placeholder="Name"><br>
-          <input type="submit" value='Save' id="submit">
-        </form>
-      </div>
-
-      <div class='col-sm-12 col-md-9 col-lg-6' >
-        <form id="edit-income" >
-          <input type="text" name='edit-name' id="edit-name"><br>
-          <input type="submit" value='Save' id="submit">
-        </form>
-      </div>
-      
-
-  </div>
-
-
   <div class='row'>
-
     <div class='col-sm-6 col-md-6 col-lg-4' >
       <div class='card'>
         <h2 class="card-title">Income</h4>
-          <p>Salary, dividends, buy to let, coupons</p>
+          <p>Salary, dividends, B2L, foxed income</p>
           <br>
           <a href="/family">Lets do this</a>
         <h6>2-8 mins (6 questions)</h6>
@@ -126,12 +106,26 @@
        <h2 class="card-title">Pension</h4>
          <p>Company plans, defined benefit or defined contribution, SIPPs</p>
          <br>
-         <a href="/family">Lets do this</a>
+         <a href="#" id="new-pension-toggle">Lets do this</a>
         <h6>3-10 mins (7 questions)</h6>
       </div>
     </div>
 
   </div>
+
+  <div class='row'>
+    <div class='col-sm-6 col-md-6 col-lg-4' ><div id="new-pension-div" class='card'>
+        <form id="new-pension">
+            <input type="text" name='pension' id="pension" placeholder="Pension amount"><br><br>
+            Select a file: <input type="file" name="img" accept="image/gif, image/jpeg">
+            <input type="submit" value='Save' id="submit">
+        </form>
+    </div></div>
+  </div>
+
+
+
+
   
   <br>
   <h2  style="border-bottom: 2px solid #0033cc;" >CAPITAL</h2>

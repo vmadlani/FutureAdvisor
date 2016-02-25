@@ -9,16 +9,15 @@ var almController = require('../controllers/almController');
 var cashflowController = require('../controllers/cashflowController');
 var staticController = require('../controllers/staticController');
 
-// function authenticatedUser(req, res, next) {
-//   // If the user is authenticated, then we continue the execution
-//   if (req.isAuthenticated()) return next();
-
-//   // Otherwise the request is always redirected to the home page
-//   res.redirect('/');
-// }
-
+function authenticatedUser(req, res, next) {
+  // If the user is authenticated, then we continue the execution
+  if (req.isAuthenticated()) return next();
+  // Otherwise the request is always redirected to the home page
+  res.redirect('/signup');
+}
 
 router.route('/').get(function(req, res) {
+  console.log(req.isAuthenticated());
   res.render('index');
 })
 
@@ -37,6 +36,7 @@ router.route("/logout")
 router.route('/users')
   .get(usersController.usersIndex)
   .post(usersController.usersCreate)
+  .patch(usersController.usersUpdate2)
 
 router.route('/users/:id') 
   .get(usersController.usersShow)
@@ -76,11 +76,13 @@ router.route('/financialCashflow')
 
 // STATIC
 router.route('/about')
-  .get(staticController.about);
+  .get(
+    authenticatedUser, 
+    staticController.about);
 router.route('/contact')
   .get(staticController.contact);
-  router.route('/family')
-    .get(staticController.family);
+router.route('/profile')
+  .get(staticController.profile);
 
 
 
