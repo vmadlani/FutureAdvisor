@@ -9,6 +9,8 @@ $(document).ready(function(){
   $("form#new-pension").on("submit", addPension);
 });
 
+var baseUrl = ''
+
 //SHOWS THE RELEVANT FORMS
 function newContact() {
   $("#new-contact-div").slideToggle("fast");}
@@ -24,11 +26,10 @@ function editContact() {
   $("#edit-contact-div").slideToggle("fast");
 }
 
-
 function addPension(){
   event.preventDefault();
   $.ajax({
-    url:'https://localhost:3000/users',
+    url: '/users',
     type:'patch',
     data: { user: 
             {financialCashflow:  
@@ -45,7 +46,7 @@ function addPension(){
 function addContact(){
   event.preventDefault();
   $.ajax({
-    url:'https://localhost:3000/users',
+    url: '/users',
     type:'patch',
     data: { user: {
       "email": $("input#email").val(),
@@ -61,10 +62,9 @@ function addContact(){
 //add family
 function addFamily(){
   event.preventDefault();
-  var id = localStorage.getItem("category");
   $.ajax({
     method: 'patch',
-    url: 'https://localhost:3000/users/'+id,
+    url: '/users',
     data: {
       user: {
             "married": $("input#married").val(),
@@ -73,8 +73,7 @@ function addFamily(){
           }}
   }).done(function(user){
     console.log(user);
-    localStorage.setItem("family", "done")
-    $("form#new-family").slideToggle("slow"),
+    $("#new-family-div").slideToggle(),
     $("input#married").val(null), 
     $("input#kids").val(null),
     $("input#lifeCover").val(null)
@@ -83,83 +82,83 @@ function addFamily(){
 
 
 
-// EDIT USER
-function editUser(){
-  $.ajax({
-    method: 'get',
-    url: 'https://localhost:3000/users/'+$(this).data().id
-  }).done(function(user){
-    $("input#edit-name").val(user.name),
-    $("input#edit-github").val(user.github),
-    $("input#edit-bio").val(user.bio),
-    $("input#edit-portfolio").val(user.portfolio)
-    $('form#edit-user').slideDown()
-  });
-  // Bind the clicked element to our updateUser function so that the updateUser function knows what "this" refers to when the updateUser function runs
-  $('#edit-user').on('submit', updateUser.bind(this));
-}
-var updateUser = function(){
-  event.preventDefault();
-  // Get the parent element of the clicked edit anchor tag
-  var userDiv = $(this).parent()
-  var user = {
-    user:{
-      name: $("input#edit-name").val(),
-      bio: $("input#edit-bio").val(),
-      github: $("input#edit-github").val(),
-      portfolio: $("input#edit-portfolio").val()
-    }
-  };
-  $.ajax({
-    method: 'patch',
-    url: 'https://localhost:3000/users/'+$(this).data().id,
-    data: user
-  }).done(function(updatedUser){
-    // Empty the specific user div and rewrite the html with the updated user that gets returned from our server
-  });
-}
+// // EDIT USER
+// function editUser(){
+//   $.ajax({
+//     method: 'get',
+//     url: baseUrl + '/users' +$(this).data().id
+//   }).done(function(user){
+//     $("input#edit-name").val(user.name),
+//     $("input#edit-github").val(user.github),
+//     $("input#edit-bio").val(user.bio),
+//     $("input#edit-portfolio").val(user.portfolio)
+//     $('form#edit-user').slideDown()
+//   });
+//   // Bind the clicked element to our updateUser function so that the updateUser function knows what "this" refers to when the updateUser function runs
+//   $('#edit-user').on('submit', updateUser.bind(this));
+// }
+// var updateUser = function(){
+//   event.preventDefault();
+//   // Get the parent element of the clicked edit anchor tag
+//   var userDiv = $(this).parent()
+//   var user = {
+//     user:{
+//       name: $("input#edit-name").val(),
+//       bio: $("input#edit-bio").val(),
+//       github: $("input#edit-github").val(),
+//       portfolio: $("input#edit-portfolio").val()
+//     }
+//   };
+//   $.ajax({
+//     method: 'patch',
+//     url: 'https://localhost:3000/users/'+$(this).data().id,
+//     data: user
+//   }).done(function(updatedUser){
+//     // Empty the specific user div and rewrite the html with the updated user that gets returned from our server
+//   });
+// }
 
 
 
 // ADD PROJECT
 
-function toggleAddProject(){
-  $("form#new-project").slideToggle("slow");
-}
+// function toggleAddProject(){
+//   $("form#new-project").slideToggle("slow");
+// }
 
-function createProject(){
-  event.preventDefault();
-  $.ajax({
-    url:'https://localhost:3000/projects',
-    type:'post',
-    data: { project: {
-      "title": $("input#project-title").val(),
-      "description": $("input#project-description").val(),
-      "github": $("input#project-github").val(),
-      "website": $("input#project-website").val(),
-      "user" : $('#username').html()
-    }
-  }
-  }).done(function(project) {
-    addProject(project)
-    toggleAddProject();
-    $("input#project-title").val(null),
-    $("input#project-description").val(null),
-    $("input#project-github").val(null),
-    $("input#project-website").val(null)
-  });
-}
+// function createProject(){
+//   event.preventDefault();
+//   $.ajax({
+//     url:baseUrl + '/projects',
+//     type:'post',
+//     data: { project: {
+//       "title": $("input#project-title").val(),
+//       "description": $("input#project-description").val(),
+//       "github": $("input#project-github").val(),
+//       "website": $("input#project-website").val(),
+//       "user" : $('#username').html()
+//     }
+//   }
+//   }).done(function(project) {
+//     addProject(project)
+//     toggleAddProject();
+//     $("input#project-title").val(null),
+//     $("input#project-description").val(null),
+//     $("input#project-github").val(null),
+//     $("input#project-website").val(null)
+//   });
+// }
 
-function addProject(project){
-  $('#show').prepend("<div class='project-tile'><h2>"+ project.title +"</h2><p>"+ project.description +"</p><a href='https://github.com/"+ project.github +"'>Github</a> | <a href='"+ project.website +"'>Website</a></div>")
-}
+// function addProject(project){
+//   $('#show').prepend("<div class='project-tile'><h2>"+ project.title +"</h2><p>"+ project.description +"</p><a href='https://github.com/"+ project.github +"'>Github</a> | <a href='"+ project.website +"'>Website</a></div>")
+// }
 
 
-// ADD ALM
+// // ADD ALM
 
-function toggleAddALM(){
-  $("form#new-alm").slideToggle("slow");
-}
+// function toggleAddALM(){
+//   $("form#new-alm").slideToggle("slow");
+// }
 
 
 // function getData(){

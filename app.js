@@ -15,7 +15,6 @@ var methodOverride = require('method-override');
 var app            = express();
 
 
-
 // Setup database
 var databaseURL = process.env.MONGOLAB_URI || 'mongodb://localhost/yearbook';
 mongoose.connect(databaseURL);
@@ -54,7 +53,6 @@ app.use(function (req, res, next) {
   global.user = req.user;
   next()
 });
-
 
 // Require routes
 var routes = require('./config/routes');
