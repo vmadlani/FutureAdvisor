@@ -17,7 +17,7 @@ var app            = express();
 
 
 // Setup database
-var databaseURL = 'mongodb://localhost/yearbook';
+var databaseURL = process.env.MONGOLAB_URI || 'mongodb://localhost/yearbook';
 mongoose.connect(databaseURL);
 
 // We've put our seed data in a separate file
