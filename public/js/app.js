@@ -28,7 +28,7 @@ function editContact() {
 function addPension(){
   event.preventDefault();
   $.ajax({
-    url:'http://localhost:3000/users',
+    url:'https://localhost:3000/users',
     type:'patch',
     data: { user: 
             {financialCashflow:  
@@ -45,7 +45,7 @@ function addPension(){
 function addContact(){
   event.preventDefault();
   $.ajax({
-    url:'http://localhost:3000/users',
+    url:'https://localhost:3000/users',
     type:'patch',
     data: { user: {
       "email": $("input#email").val(),
@@ -64,7 +64,7 @@ function addFamily(){
   var id = localStorage.getItem("category");
   $.ajax({
     method: 'patch',
-    url: 'http://localhost:3000/users/'+id,
+    url: 'https://localhost:3000/users/'+id,
     data: {
       user: {
             "married": $("input#married").val(),
@@ -87,7 +87,7 @@ function addFamily(){
 function editUser(){
   $.ajax({
     method: 'get',
-    url: 'http://localhost:3000/users/'+$(this).data().id
+    url: 'https://localhost:3000/users/'+$(this).data().id
   }).done(function(user){
     $("input#edit-name").val(user.name),
     $("input#edit-github").val(user.github),
@@ -112,7 +112,7 @@ var updateUser = function(){
   };
   $.ajax({
     method: 'patch',
-    url: 'http://localhost:3000/users/'+$(this).data().id,
+    url: 'https://localhost:3000/users/'+$(this).data().id,
     data: user
   }).done(function(updatedUser){
     // Empty the specific user div and rewrite the html with the updated user that gets returned from our server
@@ -130,7 +130,7 @@ function toggleAddProject(){
 function createProject(){
   event.preventDefault();
   $.ajax({
-    url:'http://localhost:3000/projects',
+    url:'https://localhost:3000/projects',
     type:'post',
     data: { project: {
       "title": $("input#project-title").val(),
