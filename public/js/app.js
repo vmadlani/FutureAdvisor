@@ -53,7 +53,7 @@ function addContact(){
       "name": $("input#name").val()}}
   }).done(function(data) {
     console.log(data);
-    $("form#new-contact").slideToggle("slow"),
+    $("#new-contact-div").slideToggle("slow"),
     $("input#name").val(null), 
     $("input#email").val(null)  
   });
